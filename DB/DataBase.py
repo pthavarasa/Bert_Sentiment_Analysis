@@ -1,6 +1,6 @@
 import mysql.connector
-import pymysql
 import pandas as pd
+import pymysql
 import sys
 
 class DataBase:
@@ -99,8 +99,11 @@ class DataBase:
 		db.commit()
 		print("The element has been updated Successfully")
 
-	def loadFile(self, db, cursor, tbName):
-		cursor.execute("LOAD DATA LOCAL INFILE 'C:/Users/ThinkPad/Desktop/datasetTest.txt' INTO TABLE {} FIELDS TERMINATED BY ';' ENCLOSED BY '\n' IGNORE 1 LINES;".format(tbName))
+	def updateBD(self, db):
+		db.commit()
+
+	def loadFile(self, db, cursor, path, tbName):
+		cursor.execute("LOAD DATA LOCAL INFILE {} INTO TABLE {} FIELDS TERMINATED BY ';' ENCLOSED BY '\n' IGNORE 1 LINES;".format(path,tbName))
 		db.commit()
 		print("\nSuccessfully loaded the table from csv")
 
@@ -128,8 +131,7 @@ def main():
 	except:
 		dataBase.selectAll(dbCursor, "data")
 
-	path = 'C:/Users/ThinkPad/Desktop/datasetTest.txt'
-	#dataBase.loadFile(conn, dbCursor, "data")
+	
 	col = "(name, sentiment, review)"
 	column = "name, review"
 	condition = "name = 'ryry'"
@@ -140,6 +142,10 @@ def main():
 	dataBase.selectColumn(dbCursor,column,"data")
 	dataBase.selectElems(dbCursor,column,"data",condition)
 	dataBase.updateElem(conn, dbCursor, "data", "name='ryry'","name ='radja'")
+
+	path = """'C:/Users/ThinkPad/Desktop/NewProjet/datasetTest.txt'"""
+	tableName = "data"
+	dataBase.loadFile(conn, dbCursor, path, tableName)
 
 	dataBase.closeDB(dbCursor, conn)
 
