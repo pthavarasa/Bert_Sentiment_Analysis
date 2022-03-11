@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Sentiment prediction</title>
+        <link rel="stylesheet" href="./css/styles.css">
+        <link rel="stylesheet" href="./css/button.css">
+        <link rel="stylesheet" href="./css/card.css">
+        <link rel="stylesheet" href="./css/input.css">
+    </head>
+    <body>
+        <div id="main">
+            <header class="container top-container">
+                <h2>Choose the right feeling</h2>
+            </header>
+
+            <div class="container top-container">
+                <div class="form__group field">
+                    <input type="input" class="form__field" placeholder="Sentence" name="input" id='input' required />
+                    <label for="input" class="form__label">Type your sentences</label>
+                </div>
+            </div>
+
+            <div class="container middle-container">
+                <a class="card3 good" id='good'>
+                    <h3>Good</h3>
+                    <p class="small">This sentence is positive</p>
+                    <div class="dimmer"></div>
+                    <div class="go-corner"></div>
+                </a>
+    
+                <a class="card3 bad" id='bad'>
+                    <h3>Bad</h3>
+                    <p class="small">This sentence is negative</p>
+                    <div class="dimmer"></div>
+                    <div class="go-corner"></div>
+                </a>
+            </div>
+
+            <div class="container">
+                <p id='error'></p>
+                <p id='succes'></p>
+            </div>
+
+            <div class="container bottom-container">
+                <button class="noselect" id="submit">Send</button>
+            </div>
+      
+          </div>
+
+    </body>
+    <script src="./index.js"></script>
+</html>
