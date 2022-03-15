@@ -27,26 +27,16 @@ Voir le Jira du projet
 
 Client : 
 ```
-  # Framework : 
-    - NuxtJS
-
-  # Package :
-    - axios
+# No framework (vanilla)
 ```
 
 Server :
 ```
   # Environnement : 
-    - NodeJS
+    - Python
   
   # Base de donnée : 
     - MySQL
-  
-  # Package : 
-    - expressJS
-    - cors
-    - helmet
-    - express-rate-limit
 ```
 
 Model & Accuracy: 
@@ -65,27 +55,10 @@ Depuis votre terminal de commande :
 
 ```bash
 # Cloner le repertoire
-$ git clone https://github.com/Andy-d-g/Form-Authentification.git
+$ git clone https://github.com/Andy-d-g/Predicteur-d-emotions.git
 
 # Aller dans le repertoire
 $ cd Predicteur-d-emotions/
-
-# Installer les packages (server) [ / ]
-$ cd Server
-$ npm ci
-
-# Lancer le server en hotload [ /Server ]
-$ npm run start
-
-# Installer les package (client) [ /Client ]
-$ cd Client
-$ npm ci
-
-# Lancer le projet
-$ npm run dev
-
-# Se rendre sur la page web : http://localhost:3000/
-
 ```
 
 Build & Run model with Docker : 
@@ -119,3 +92,8 @@ WARNING! This will remove:
 ## Contributeurs
 
 @Andy-d-g
+@pthavarasa
+@rolemoine
+@layaida
+@musescorecontributor
+@papyDioDio
