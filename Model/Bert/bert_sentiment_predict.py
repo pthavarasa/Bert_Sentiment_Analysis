@@ -80,7 +80,7 @@ class BertClassifier(nn.Module):
 
         return logits
 
-class MyModel():
+class Bert():
 	def __init__(self):
 		# Load the BERT tokenizer
 		self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
