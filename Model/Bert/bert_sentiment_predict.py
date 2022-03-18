@@ -198,10 +198,12 @@ class Bert():
 
 
 		probs = self.bert_predict(self.saved_model, test_dataloader)
+		sentiment = "Positif" if np.argmax(probs, axis=1).tolist()[0] else "Negatif"
 
 
 		#return np.argmax(probs, axis=1).tolist()[0]
-		return str(np.argmax(probs, axis=1).tolist()[0]) +","+ str(probs.max())
+		#return str(np.argmax(probs, axis=1).tolist()[0]) +","+ str(probs.max())
+		return {"text" : text, "sentiment": str(sentiment), "precision": float(probs.max())}
 
 #m = MyModel()
 #print(m.predict("good"))
