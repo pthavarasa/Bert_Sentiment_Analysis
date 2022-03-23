@@ -74,17 +74,6 @@ sudo docker run -p 8000:8000 mymodel
 # use : 
 http://localhost:8000/text/{text to predict}
 ```
-Use this docker command to delete everything :
-```bash
-docker system prune -a --volumes
-
-WARNING! This will remove:
-    - all stopped containers
-    - all networks not used by at least one container
-    - all volumes not used by at least one container
-    - all images without at least one container associated to them
-    - all build cache
-```
 
 ## Sources
 - [Bert Model](https://skimai.com/fine-tuning-bert-for-sentiment-analysis/)
@@ -96,4 +85,3 @@ WARNING! This will remove:
 @rolemoine
 @layaida
 @musescorecontributor
-@papyDioDio
