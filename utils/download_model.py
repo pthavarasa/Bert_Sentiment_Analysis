@@ -11,6 +11,6 @@ if len(sys.argv) < 3:
 if os.path.isfile(sys.argv[2]):
 	print("file exist")
 	exit(0)
-	
-url = 'https://drive.google.com/uc?id='+sys.argv[1]
+
+url = f'https://drive.google.com/uc?id={sys.argv[1]}'
 gdown.download(url, sys.argv[2], quiet=False)

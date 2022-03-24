@@ -37,6 +37,9 @@ Server :
   
   # Base de donnée : 
     - MySQL
+
+  # Container : 
+    - Docker
 ```
 
 Model & Accuracy: 
@@ -66,10 +69,10 @@ Build & Run model with Docker :
 
 ```bash
 # build docker image
-sudo docker build -t mymodel -f Dockerfile .
+docker build -t mymodel -f Dockerfile .
 
 # run docker image 
-sudo docker run -p 8000:8000 mymodel
+docker run -p 8000:8000 mymodel
 
 # use : 
 http://localhost:8000/text/{text to predict}

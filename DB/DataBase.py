@@ -18,29 +18,30 @@ class DataBase:
 				user = user,
 				password = password,
 			)
-			print("Connected to DB:{}".format(host))
+			print(f"Connected to DB:{host}")
 			return connexion, connexion.cursor()
 
 		except Exception as e:
-			print("Error in connexion:{}".format(str(e)))
+			print(f"Error in connexion:{str(e)}")
 			sys.exit(1)
 
 	def createDB(self, db, cursor):
-		cursor.execute("CREATE DATABASE {}".format(self.DB_Name))
+		cursor.execute(f"CREATE DATABASE {self.DB_Name}")
 		db.commit()
 		print("New Data Base created")
 
 	def selectDB(self, cursor):
-		cursor.execute("USE {}".format(self.DB_Name))
-		print("Data Base {} already exist ; selected".format(self.DB_Name))
+		cursor.execute(f"USE {self.DB_Name}")
+		print(f"Data Base {self.DB_Name} already exist ; selected")
 
 	def createTable(self,db, cursor, tbName, tableColumns):
-		cursor.execute("CREATE TABLE {}{}".format(tbName,tableColumns))
+		cursor.execute(f"CREATE TABLE {tbName}{tableColumns}")
 		db.commit()
-		print("The table {} has been created Successfully".format(tbName))
+		print(f"The table {tbName} has been created Successfully")
 
-	def selectTable(self, cursor, tbName):#############marche pas
-		cursor.execute("USE TABLE {}".format(tbName))
+	# Ne fonctionne pas -> A supprimer ?
+	def selectTable(self, cursor, tbName):
+		cursor.execute(f"USE TABLE {tbName}")
 
 	def showDb(self, cursor):
 		cursor.execute("SHOW DATABASES")
@@ -53,49 +54,49 @@ class DataBase:
 			print(tb)
 
 	def insertElem(self, db, cursor, tbName, columns, values):
-		cursor.execute("INSERT INTO {} {}VALUES{}".format(tbName, columns, values))
+		cursor.execute(f"INSERT INTO {tbName} {columns}VALUES{values}")
 		db.commit()
 		print("The element has been inserted Successfully")
 
 	def deleteElem(self, db, cursor, tbName, condition):
-		cursor.execute("DELETE FROM {} WHERE {}".format(tbName, condition))
+		cursor.execute(f"DELETE FROM {tbName} WHERE {condition}")
 		db.commit()
 		print("The element has been deleted Successfully")
 
 	def deleteTable(self, cursor, tbName):
-		cursor.execute("DROP TABLE IF EXISTS {}".format(tbName))
-		print("The table {} has been deleted Successfully".format(tbName))
+		cursor.execute(f"DROP TABLE IF EXISTS {tbName}")
+		print(f"The table {tbName} has been deleted Successfully")
 
 	def selectColumn(self, cursor, columns, tbName):
-		cursor.execute("SELECT {} from {}".format(columns, tbName))
+		cursor.execute(f"SELECT {columns} from {tbName}")
 		res = cursor.fetchall()
 		print("\nThe columns {} selected from {} are :".format(columns,tbName))
 		for line in res:
 			print(line)
 
 	def selectElems(self, cursor, columns, tbName, condition):
-		cursor.execute("SELECT {} from {} WHERE {}".format(columns, tbName, condition))
+		cursor.execute(f"SELECT {columns} from {tbName} WHERE {condition}")
 		res = cursor.fetchall()
 		print("\nThe elements whith the condition {} are :".format(condition))
 		for line in res:
 			print(line)
 
 	def selectOneElem(self, cursor, columns, tbName, condition):
-		cursor.execute("SELECT {} from {} WHERE {}".format(columns, tbName, condition))
+		cursor.execute(f"SELECT {columns} from {tbName} WHERE {condition}")
 		res = cursor.fetchone()
 		print("\nThe element whith the condition {} is :".format(condition))
 		for line in res:
 			print(line)
 
 	def selectAll(self, cursor, tbName):
-		cursor.execute("SELECT * from {}".format(tbName))
+		cursor.execute(f"SELECT * from {tbName}")
 		res = cursor.fetchall()
 		print("\nThe Select All of the table {} :".format(tbName))
 		for line in res:
 			print(line)
 
 	def updateElem(self, db, cursor, tbName, newValue, value):
-		cursor.execute("UPDATE {} SET {} WHERE {}".format(tbName, newValue, value))
+		cursor.execute(f"UPDATE {tbName} SET {newValue} WHERE {value}")
 		db.commit()
 		print("The element has been updated Successfully")
 
@@ -111,7 +112,7 @@ class DataBase:
 		connexion.close()
 		cursor.close()
 
-
+"""
 
 def main():
 	dataBase = DataBase("PROJET")
@@ -151,3 +152,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+"""
