@@ -29,7 +29,6 @@ badBtn.addEventListener('click', () => {setActiveBtn(bad, good)})
 submitBtn.addEventListener('click', () => {
     setupLog(error, succes, "")
     if (emotion > -1 && getInputContent()) {
-        //fetch(`http://localhost:8000/text/${getInputContent()}?emotion=${emotion}`).then(response => {
         fetch(`http://localhost:8000/text/${getInputContent()}/${emotion}`).then(response => {
             response.json().then(parsedJson => {
                 setupLog(succes, error, "Predicted : " + parsedJson.sentiment)
