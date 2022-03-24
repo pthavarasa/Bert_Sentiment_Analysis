@@ -4,7 +4,8 @@ import os
 from fastapi.middleware.cors import CORSMiddleware
 from DB import DataBase
 from utils import clean_input_py
-from Model import linear_regression
+from Model import LR
+from Model import Bert
 
 app = FastAPI()
 
@@ -17,17 +18,21 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-#bert = Bert()
 db = DataBase("PROJET")
 conn, dbCursor = db.connexionDB("localhost", "root", "")
 db.selectDB(dbCursor)
 
-@app.get("/text/{text}?emotion={emotion}")
-async def text(text):
+sentimentTable = db.getAll("data")
+
+bert = Bert(sentimentTable)
+linearRegression = LR(sentimentTable)
+
+@app.get("/text/{text}/{emotion}")
+async def text(text, emotion):
     text = clean_input(text)
     db.insertElem(conn, dbCursor, "data", "(name, sentiment, review)", (text, emotion))
     bertPrediction = bert.predict(text)
+    lrPrediction = LR.predict(text)
     return {
         emotion: emotion,
         bert: bertPrediction

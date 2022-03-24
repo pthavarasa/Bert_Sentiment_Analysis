@@ -29,17 +29,17 @@ badBtn.addEventListener('click', () => {setActiveBtn(bad, good)})
 submitBtn.addEventListener('click', () => {
     setupLog(error, succes, "")
     if (emotion > -1 && getInputContent()) {
-        emotion = -1;
-        if (existClass(good.target, good.class)) good.target.classList.remove(good.class)
-        else if (existClass(bad.target, bad.class)) bad.target.classList.remove(bad.class)
         //fetch(`http://localhost:8000/text/${getInputContent()}?emotion=${emotion}`).then(response => {
-        fetch(`http://localhost:8000/text/${getInputContent()}`).then(response => {
+        fetch(`http://localhost:8000/text/${getInputContent()}/${emotion}`).then(response => {
             response.json().then(parsedJson => {
                 setupLog(succes, error, "Predicted : " + parsedJson.sentiment)
             })
         }).catch(err => {
             setupLog(error, succes, "Error during communication with server")
         })
+        emotion = -1;
+        if (existClass(good.target, good.class)) good.target.classList.remove(good.class)
+        else if (existClass(bad.target, bad.class)) bad.target.classList.remove(bad.class)
     } else {
         if (emotion < 0) setupLog(error, succes, "You must specify emotion")
         else if (!getInputContent()) setupLog(error, succes, "You must specify sentence")

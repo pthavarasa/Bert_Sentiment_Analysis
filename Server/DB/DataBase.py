@@ -95,6 +95,10 @@ class DataBase:
 		for line in res:
 			print(line)
 
+	def getAll(self, cursor, tbName):
+        cursor.execute(f"SELECT * from {tbName}")
+        return cursor.fetchall()
+
 	def updateElem(self, db, cursor, tbName, newValue, value):
 		cursor.execute(f"UPDATE {tbName} SET {newValue} WHERE {value}")
 		db.commit()
