@@ -1,9 +1,10 @@
 from fastapi import FastAPI
 import os
-from bert_sentiment_predict import Bert
+#from bert_sentiment_predict import Bert
 from fastapi.middleware.cors import CORSMiddleware
-from Database import DataBase
-from clean_input_py import clean_input
+from DB import DataBase
+from utils import clean_input_py
+from Model import linear_regression
 
 app = FastAPI()
 
@@ -17,7 +18,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-bert = Bert()
+#bert = Bert()
 db = DataBase("PROJET")
 conn, dbCursor = db.connexionDB("localhost", "root", "")
 db.selectDB(dbCursor)
