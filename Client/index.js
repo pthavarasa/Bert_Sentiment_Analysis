@@ -34,7 +34,9 @@ submitBtn.addEventListener('click', () => {
         else if (existClass(bad.target, bad.class)) bad.target.classList.remove(bad.class)
         //fetch(`http://localhost:8000/text/${getInputContent()}?emotion=${emotion}`).then(response => {
         fetch(`http://localhost:8000/text/${getInputContent()}`).then(response => {
-            setupLog(succes, error, "The result")
+            response.json().then(parsedJson => {
+                setupLog(succes, error, "Predicted : " + parsedJson.sentiment)
+            })
         }).catch(err => {
             setupLog(error, succes, "Error during communication with server")
         })
