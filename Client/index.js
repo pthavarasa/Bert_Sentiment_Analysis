@@ -31,7 +31,7 @@ submitBtn.addEventListener('click', () => {
     if (emotion > -1 && getInputContent()) {
         fetch(`http://localhost:8000/text/${getInputContent()}/${emotion}`).then(response => {
             response.json().then(parsedJson => {
-                setupLog(succes, error, `Text : ${parsedJson.text} <br> Bert prediction : ${parsedJson.bert} <br> LR prediction : ${parsedJson.lr} <br> Correct Result : ${parsedJson.emotion}`)
+                setupLog(succes, error, `Bert prediction : ${parsedJson.bert} <br> LR prediction : ${parsedJson.lr} <br> Correct Result : ${parsedJson.emotion}`)
             })
         }).catch(err => {
             setupLog(error, succes, "Error during communication with server")
