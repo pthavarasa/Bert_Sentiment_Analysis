@@ -70,10 +70,12 @@ $ pip3 install --default-timeout=100 --no-cache-dir torch==1.10.2
 # Install bert model
 $ python3 ./Server/utils/download_model.py 1KVo4Z1vThfHI732Asg-OeIYTISwV1kpe ./Server/Model/bert.pickle
 
-
 # Lancer le projet
 $ cd Server
 $ uvicorn api:app --host 0.0.0.0 --port 8000 --reload
+
+# Ouvrir index.html
+$ open Client/index.html
 ```
 
 Build & Run model with Docker (not working for moment : probleme with DB) : 
