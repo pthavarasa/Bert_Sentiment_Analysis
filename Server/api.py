@@ -2,8 +2,9 @@ from fastapi import FastAPI
 import os
 #from bert_sentiment_predict import Bert
 from fastapi.middleware.cors import CORSMiddleware
-from DB import Database
-from utils import clean_input_py
+from DB import DataBase
+from utils import format_dataset
+#from utils import clean_input
 """
 from Model import LR
 from Model import Bert
@@ -19,22 +20,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
+originalDatasetPath = "./Server/DB/dataset.txt"
+formatDatasetPath = "./Server/DB/formatDataset.txt"
+format_dataset.format_dataset(originalDatasetPath)
 tbName = "sentiment"
 dbName = "PROJET"
 columns = "(sentiment VARCHAR(255), review VARCHAR(255))"
-db = Database.DataBase("localhost","root","",dbName, tbName)
+db = DataBase.Database("localhost", "root", "", dbName, tbName)
 db.createTable(tbName, columns)
-#db.injectDataset(tbName, columns, dataset)
-
+db.injectFile(formatDatasetPath, tbName)
 
 
 """
-
-db = DataBase("PROJET")
-conn, dbCursor = db.connexionDB("localhost", "root", "")
-db.selectDB(dbCursor)
 
 sentimentTable = db.getAll("data")
 
