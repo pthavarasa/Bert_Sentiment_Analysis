@@ -4,3 +4,9 @@ transformers==2.8.0
 sentencepiece==0.1.96
 uvicorn==0.17.5
 gdown
+pandas
+sklearn
+mysql
+pymysql
+nltk
+mysql-connector
