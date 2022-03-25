@@ -62,6 +62,10 @@ $ git clone https://github.com/Andy-d-g/Predicteur-d-emotions.git
 
 # Aller dans le repertoire
 $ cd Predicteur-d-emotions/
+
+# Install dependencies
+pip3 install --no-cache-dir -r ./Server/requirements.txt
+pip3 install --default-timeout=100 --no-cache-dir torch==1.10.2
 ```
 
 Build & Run model with Docker : 
@@ -75,7 +79,7 @@ docker build -t mymodel -f Dockerfile .
 docker run -p 8000:8000 mymodel
 
 # use : 
-http://localhost:8000/text/{text to predict}
+http://localhost:8000/text/{text to predict}/{sentiment}
 ```
 
 ## Sources
