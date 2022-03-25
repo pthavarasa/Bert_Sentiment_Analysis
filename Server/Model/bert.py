@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-
-import re
 import time
 import random
 import numpy as np
@@ -77,14 +75,11 @@ class BertClassifier(nn.Module):
         # Feed input to BERT
         outputs = self.bert(input_ids=input_ids,
                             attention_mask=attention_mask)
-        
+
         # Extract the last hidden state of the token `[CLS]` for classification task
         last_hidden_state_cls = outputs[0][:, 0, :]
 
-        # Feed input to classifier to compute logits
-        logits = self.classifier(last_hidden_state_cls)
-
-        return logits
+        return self.classifier(last_hidden_state_cls)
 
 class Bert():
 	def __init__(self):
@@ -144,52 +139,30 @@ class Bert():
 
 
 	def bert_predict(self, model, test_dataloader):
-		"""Perform a forward pass on the trained BERT model to predict probabilities
+	    """Perform a forward pass on the trained BERT model to predict probabilities
 		on the test set.
 		"""
-		# Put the model into the evaluation mode. The dropout layers are disabled during
-		# the test time.
-		model.eval()
+	    # Put the model into the evaluation mode. The dropout layers are disabled during
+	    # the test time.
+	    model.eval()
 
-		all_logits = []
+	    all_logits = []
 
-		# For each batch in our test set...
-		for batch in test_dataloader:
-			# Load batch to GPU
-			b_input_ids, b_attn_mask = tuple(t.to(self.device) for t in batch)[:2]
+	    # For each batch in our test set...
+	    for batch in test_dataloader:
+	    	# Load batch to GPU
+	    	b_input_ids, b_attn_mask = tuple(t.to(self.device) for t in batch)[:2]
 
-			# Compute logits
-			with torch.no_grad():
-				logits = model(b_input_ids, b_attn_mask)
-			all_logits.append(logits)
-		
-		# Concatenate logits from each batch
-		all_logits = torch.cat(all_logits, dim=0)
+	    	# Compute logits
+	    	with torch.no_grad():
+	    		logits = model(b_input_ids, b_attn_mask)
+	    	all_logits.append(logits)
+
+	    # Concatenate logits from each batch
+	    all_logits = torch.cat(all_logits, dim=0)
 
 		# Apply softmax to calculate probabilities
-		probs = F.softmax(all_logits, dim=1).cpu().numpy()
-
-		return probs
-
-
-
-	def text_preprocessing(self, text):
-		"""
-		- Remove entity mentions (eg. '@united')
-		- Correct errors (eg. '&amp;' to '&')
-		@param    text (str): a string to be processed.
-		@return   text (Str): the processed string.
-		"""
-		# Remove '@name'
-		text = re.sub(r'(@.*?)[\s]', ' ', text)
-
-		# Replace '&amp;' with '&'
-		text = re.sub(r'&amp;', '&', text)
-
-		# Remove trailing whitespace
-		text = re.sub(r'\s+', ' ', text).strip()
-
-		return text
+	    return F.softmax(all_logits, dim=1).cpu().numpy()
 		
 	def set_seed(self, seed_value=42):
 		"""Set seed for reproducibility.
@@ -388,18 +361,18 @@ class Bert():
 		torch.save(bert_classifier, model_save_path)
 
 	def predict(self, text):
-		test_inputs, test_masks = self.preprocessing_for_bert(np.array([text]))
+	    test_inputs, test_masks = self.preprocessing_for_bert(np.array([text]))
 
-		# Create the DataLoader for our test set
-		test_dataset = TensorDataset(test_inputs, test_masks)
-		test_sampler = SequentialSampler(test_dataset)
-		test_dataloader = DataLoader(test_dataset, sampler=test_sampler, batch_size=32)
-
-
-		probs = self.bert_predict(self.saved_model, test_dataloader)
-		sentiment = "Positif" if np.argmax(probs, axis=1).tolist()[0] else "Negatif"
+	    # Create the DataLoader for our test set
+	    test_dataset = TensorDataset(test_inputs, test_masks)
+	    test_sampler = SequentialSampler(test_dataset)
+	    test_dataloader = DataLoader(test_dataset, sampler=test_sampler, batch_size=32)
 
 
-		#return np.argmax(probs, axis=1).tolist()[0]
+	    probs = self.bert_predict(self.saved_model, test_dataloader)
+	    sentiment = "Positif" if np.argmax(probs, axis=1).tolist()[0] else "Negatif"
+
+
+	    #return np.argmax(probs, axis=1).tolist()[0]
 		#return str(np.argmax(probs, axis=1).tolist()[0]) +","+ str(probs.max())
-		return {"text" : text, "sentiment": str(sentiment), "precision": float(probs.max())}
+	    return {"text": text, "sentiment": sentiment, "precision": float(probs.max())}
