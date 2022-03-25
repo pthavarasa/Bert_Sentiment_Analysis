@@ -8,7 +8,7 @@ from sklearn.linear_model import LogisticRegression
 
 
 class Logistic_regression : 
-    #classe permettant d'entrainer un modele de regression logistique et de de prédire à partir du modèle
+    # classe permettant d'entrainer un modele de regression logistique et de de prédire à partir du modèle
     # si une phrase a un sentiment positif ou négatif
     def __init__(self,df): 
         # Le modele prend en arguement un dataframe
@@ -36,7 +36,7 @@ class Logistic_regression :
         
     """Prédiction sur une nouvelle phrase"""
     
-    def LR_model(self,phrase) :
+    def predict(self,phrase) :
         # instance permettant de prédire sur une phrase le sentiment en se basant sur le modèle entraîné ci dessus
         
         phrase_trans = self.cv.transform([phrase])
