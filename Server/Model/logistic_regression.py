@@ -14,6 +14,7 @@ class Logistic_regression :
         # Le modele prend en arguement un dataframe
         
         #separation etiquette / dataset à étudier
+        df['sentiment'] = df['sentiment'].map({'positive':1,'negative':0})
         self.X = df['review']  #seul la colonne contenant le commentaire sera retenue car relevant
         self.y = df['sentiment']
         
