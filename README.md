@@ -66,9 +66,12 @@ $ cd Predicteur-d-emotions/
 # Install dependencies
 pip3 install --no-cache-dir -r ./Server/requirements.txt
 pip3 install --default-timeout=100 --no-cache-dir torch==1.10.2
+
+# Install model
+python3 ./Server/utils/download_model.py 1KVo4Z1vThfHI732Asg-OeIYTISwV1kpe ./Server/Model/bert.pickle
 ```
 
-Build & Run model with Docker : 
+Build & Run model with Docker (not working for moment : probleme with DB) : 
 - [How to install docker](https://docs.docker.com/engine/install/)
 
 ```bash
