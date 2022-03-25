@@ -1,9 +1,8 @@
 import mysql.connector
 import pandas as pd
-import pymysql
 import sys
 
-class DataBase:
+class Database:
 	"""
 	Class de la base de données
 	"""
@@ -42,16 +41,22 @@ class DataBase:
 	def deleteTable(self, tbName):
 		self.cursor.execute(f"DROP TABLE IF EXISTS {tbName}")
 
-	def createTable(self, tbName, tableColumns):
-		self.cursor.execute(f"CREATE TABLE {tbName} {tableColumns}")
+	def createTable(self, tbName, tbColumns):
+		self.cursor.execute(f"CREATE TABLE {tbName} {tbColumns}")
 		self.conn.commit()
 		print(f"The table {tbName} has been created successfully")
 
-	def insertElem(self, tbName, columns, values):
-		self.cursor.execute(f"INSERT INTO {tbName} {columns} VALUES {values}")
+	def injectFile(self, path, tbName):
+		self.cursor.execute(f"LOAD DATA LOCAL INFILE '{path}' INTO TABLE {tbName} FIELDS TERMINATED BY ';' ENCLOSED BY '\n' IGNORE 1 LINES;")
 		self.conn.commit()
+		print(f"Successfully loaded {path} into {tbName}")
 
-	def injectDataset(self, tbName, columns, dataset):
-		for e in dataset:
-			self.insertElem(tbName, columns, e)
-		print("The dataset has been inserted successfully")
+	def selectAll(self, tbName):
+		self.cursor.execute(f"SELECT * from {tbName}")
+		res = self.cursor.fetchall()
+		print(f"The Select All of the table {tbName} :")
+		for line in res:
+			print(line)
+
+	def getDfOfDataset(self, tbName):
+		return pd.read_sql(f"SELECT * FROM {self.dbName}.{tbName}", self.conn)
