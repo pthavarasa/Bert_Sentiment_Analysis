@@ -334,8 +334,7 @@ class Bert():
 													num_training_steps=total_steps)
 		return bert_classifier, optimizer, scheduler
 	
-	def train_model(self, data_path, model_save_path):
-		df = pd.read_csv(data_path, sep = ';', skiprows=1, header=None)
+	def train_model(self, model_save_path, df):
 		df.dropna(inplace=True)
 		df.reset_index(drop=True, inplace=True)
 		
