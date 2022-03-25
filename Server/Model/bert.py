@@ -164,6 +164,24 @@ class Bert():
 		# Apply softmax to calculate probabilities
 	    return F.softmax(all_logits, dim=1).cpu().numpy()
 		
+	def text_preprocessing(self, text):
+		"""
+		- Remove entity mentions (eg. '@united')
+		- Correct errors (eg. '&amp;' to '&')
+		@param    text (str): a string to be processed.
+		@return   text (Str): the processed string.
+		"""
+		# Remove '@name'
+		text = re.sub(r'(@.*?)[\s]', ' ', text)
+
+		# Replace '&amp;' with '&'
+		text = re.sub(r'&amp;', '&', text)
+
+		# Remove trailing whitespace
+		text = re.sub(r'\s+', ' ', text).strip()
+
+		return 
+
 	def set_seed(self, seed_value=42):
 		"""Set seed for reproducibility.
 		"""
