@@ -1,4 +1,4 @@
-def format_dataset(datasetPath):
+def format_dataset(datasetPath, formatDatasetPath):
     with open(datasetPath, 'r') as f:
         ndataset = ""
         columns = "review;sentiment"
@@ -9,6 +9,6 @@ def format_dataset(datasetPath):
             line = f"{parts[1]};{parts[2]}"
             ndataset = f"{ndataset}{line}"
         ndataset = f"{columns}\n{ndataset}"
-        with open('./Server/DB/formatDataset.txt', 'w') as nf:
+        with open(formatDatasetPath, 'w') as nf:
             nf.write(ndataset)
             

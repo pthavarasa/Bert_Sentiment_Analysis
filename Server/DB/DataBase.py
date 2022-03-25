@@ -39,6 +39,12 @@ class Database:
 			self.cursor.execute(f"USE {self.dbName}")
 			print(f"DataBase {self.dbName} already exist -> selected")
 
+	def insertElem(self, tbName, columns, values):
+		self.cursor.execute(f"INSERT INTO {tbName} {columns}VALUES{values}")
+		self.conn.commit()
+		print("The element has been inserted Successfully")
+	## dataBase.insertElem(conn, dbCursor, "data", col, values)
+
 	def deleteTable(self, tbName):
 		self.cursor.execute(f"DROP TABLE IF EXISTS {tbName}")
 
@@ -56,6 +62,8 @@ class Database:
 		conn = pymysql.connect(host='localhost',
                         user='root',
                         password='')
-		data = pd.read_sql(f"Select * From {self.dbName}.{tbName}", conn)
+		df = pd.read_sql(f"Select * From {self.dbName}.{tbName}", conn)
+		df.dropna(inplace=True)
+		df.reset_index(drop=True, inplace=True)
 		conn.close()
-		return data
+		return df

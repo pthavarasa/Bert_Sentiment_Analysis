@@ -64,11 +64,16 @@ $ git clone https://github.com/Andy-d-g/Predicteur-d-emotions.git
 $ cd Predicteur-d-emotions/
 
 # Install dependencies
-pip3 install --no-cache-dir -r ./Server/requirements.txt
-pip3 install --default-timeout=100 --no-cache-dir torch==1.10.2
+$ pip3 install --no-cache-dir -r ./Server/requirements.txt
+$ pip3 install --default-timeout=100 --no-cache-dir torch==1.10.2
 
-# Install model
-python3 ./Server/utils/download_model.py 1KVo4Z1vThfHI732Asg-OeIYTISwV1kpe ./Server/Model/bert.pickle
+# Install bert model
+$ python3 ./Server/utils/download_model.py 1KVo4Z1vThfHI732Asg-OeIYTISwV1kpe ./Server/Model/bert.pickle
+
+
+# Lancer le projet
+$ cd Server
+$ uvicorn api:app --host 0.0.0.0 --port 8000 --reload
 ```
 
 Build & Run model with Docker (not working for moment : probleme with DB) : 

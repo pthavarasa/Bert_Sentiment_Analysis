@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
+import re
 import time
 import random
 import numpy as np
@@ -82,7 +83,7 @@ class BertClassifier(nn.Module):
         return self.classifier(last_hidden_state_cls)
 
 class Bert():
-	def __init__(self):
+	def __init__(self, bertModelPicklePath):
 		# Load the BERT tokenizer
 		self.tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
 		if torch.cuda.is_available():       
@@ -93,7 +94,7 @@ class Bert():
 		else:
 			#print('No GPU available, using the CPU instead.')
 			self.device = torch.device("cpu")
-		self.saved_model = CustomUnpickler(open('bert.pickle', 'rb')).load()
+		self.saved_model = CustomUnpickler(open(bertModelPicklePath, 'rb')).load()
 		#self.saved_model = torch.load('bert_sentiment_model', map_location=torch.device('cpu'))
 		self.loss_fn = nn.CrossEntropyLoss()
 	# Create a function to tokenize a set of texts
@@ -180,7 +181,7 @@ class Bert():
 		# Remove trailing whitespace
 		text = re.sub(r'\s+', ' ', text).strip()
 
-		return 
+		return text
 
 	def set_seed(self, seed_value=42):
 		"""Set seed for reproducibility.
@@ -273,7 +274,8 @@ class Bert():
 		print("Training complete!")
 		
 	def evaluate(self, model, val_dataloader):
-		"""After the completion of each training epoch, measure the model's performance
+		"""
+		After the completion of each training epoch, measure the model's performance
 		on our validation set.
 		"""
 		# Put the model into the evaluation mode. The dropout layers are disabled during
@@ -335,13 +337,10 @@ class Bert():
 		return bert_classifier, optimizer, scheduler
 	
 	def train_model(self, model_save_path, df):
-		df.dropna(inplace=True)
-		df.reset_index(drop=True, inplace=True)
+		df["sentiment"].replace({"positive": 1, "negative": 0}, inplace=True)
 		
-		df[2].replace({"positive": 1, "negative": 0}, inplace=True)
-		
-		X = df[1][:].values
-		y = df[2][:].values
+		X = df["review"][:].values
+		y = df["sentiment"][:].values
 
 		X_train, X_val, y_train, y_val =\
 			train_test_split(X, y, test_size=0.1, random_state=2020)

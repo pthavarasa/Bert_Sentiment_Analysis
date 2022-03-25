@@ -25,7 +25,7 @@ class Logistic_regression :
         self.cv = CountVectorizer()     
         # Transformation des données d'entrainement
         self.ctmTr = self.cv.fit_transform(self.X_train)
-         # Transformation des données de test
+        # Transformation des données de test
         self.X_test_dtm = self.cv.transform(self.X_test)
         
         # entrainement du dataset par regression linear

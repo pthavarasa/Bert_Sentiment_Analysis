@@ -1,7 +1,7 @@
 const getInputContent = () => inputBtn.value;
 const existClass = (el, classEl) => [...el.classList].includes(classEl)
 const setActiveBtn = (el, otherEl) => {
-    error.innerHTML = ""
+    error.outerHTML = ""
     if (emotion !== el.value) {
         emotion = el.value;
         if (!existClass(el.target, el.class)) el.target.classList.toggle(el.class)
@@ -31,7 +31,7 @@ submitBtn.addEventListener('click', () => {
     if (emotion > -1 && getInputContent()) {
         fetch(`http://localhost:8000/text/${getInputContent()}/${emotion}`).then(response => {
             response.json().then(parsedJson => {
-                setupLog(succes, error, "Predicted : " + parsedJson.sentiment)
+                setupLog(succes, error, `Text : ${parsedJson.text} <br> Bert prediction : ${parsedJson.bert} <br> LR prediction : ${parsedJson.lr} <br> Correct Result : ${parsedJson.emotion}`)
             })
         }).catch(err => {
             setupLog(error, succes, "Error during communication with server")
