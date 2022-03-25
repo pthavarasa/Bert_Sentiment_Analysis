@@ -1,6 +1,7 @@
 import mysql.connector
 import pandas as pd
 import sys
+import pymysql
 
 class Database:
 	"""
@@ -33,10 +34,10 @@ class Database:
 		try:
 			self.cursor.execute(f"CREATE DATABASE {self.dbName}")
 			self.conn.commit()
-			print("New Data Base created")
+			print("New DataBase created")
 		except:
 			self.cursor.execute(f"USE {self.dbName}")
-			print(f"Data Base {self.dbName} already exist -> selected")
+			print(f"DataBase {self.dbName} already exist -> selected")
 
 	def deleteTable(self, tbName):
 		self.cursor.execute(f"DROP TABLE IF EXISTS {tbName}")
@@ -51,12 +52,10 @@ class Database:
 		self.conn.commit()
 		print(f"Successfully loaded {path} into {tbName}")
 
-	def selectAll(self, tbName):
-		self.cursor.execute(f"SELECT * from {tbName}")
-		res = self.cursor.fetchall()
-		print(f"The Select All of the table {tbName} :")
-		for line in res:
-			print(line)
-
 	def getDfOfDataset(self, tbName):
-		return pd.read_sql(f"SELECT * FROM {self.dbName}.{tbName}", self.conn)
+		conn = pymysql.connect(host='localhost',
+                        user='root',
+                        password='')
+		data = pd.read_sql(f"Select * From {self.dbName}.{tbName}", conn)
+		conn.close()
+		return data
