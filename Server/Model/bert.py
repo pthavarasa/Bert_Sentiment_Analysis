@@ -93,7 +93,7 @@ class Bert():
 		else:
 			#print('No GPU available, using the CPU instead.')
 			self.device = torch.device("cpu")
-		self.saved_model = CustomUnpickler(open('bert_sentiment_model.pickle', 'rb')).load()
+		self.saved_model = CustomUnpickler(open('bert.pickle', 'rb')).load()
 		#self.saved_model = torch.load('bert_sentiment_model', map_location=torch.device('cpu'))
 		self.loss_fn = nn.CrossEntropyLoss()
 	# Create a function to tokenize a set of texts
