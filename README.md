@@ -73,6 +73,11 @@ $ python3 ./Server/utils/download_model.py 1KVo4Z1vThfHI732Asg-OeIYTISwV1kpe ./S
 # Lancer Mysql
 $ mysql.server start (macOS)
 
+# Permettre à MySql de charger des fichiers 
+$ mysql
+$ set global local_infile=true;
+$ exit;
+
 # Changement les identifiants de connexion à la base de donnée (Server/api.py:28)
 
 # Lancer le projet
