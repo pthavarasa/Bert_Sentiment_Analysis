@@ -103,6 +103,9 @@ docker run -p 8000:8000 mymodel
 http://localhost:8000/text/{text to predict}/{sentiment}
 ```
 
+## Screenshot
+<img src="Capture.PNG" alt="Bad or Good">
+
 ## Sources
 - [Bert Model](https://skimai.com/fine-tuning-bert-for-sentiment-analysis/)
 
