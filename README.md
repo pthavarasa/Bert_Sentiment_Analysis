@@ -18,11 +18,9 @@
 
 Ce repository est composé d'un serveur et d'un client.
 Projet universitaire en groupe 
+
+## Try online
 https://bert-sentiment-analysis-2022.herokuapp.com/
-
-## A faire :
-
-Voir le Jira du projet
 
 ## Technologies
 
