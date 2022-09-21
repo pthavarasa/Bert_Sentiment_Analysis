@@ -20,6 +20,8 @@ Ce repository est composé d'un serveur et d'un client.
 Projet universitaire en groupe 
 
 ## Try online
+https://thavarasa.name/heroku/?name=bert-sentiment-analysis-2022
+
 https://bert-sentiment-analysis-2022.herokuapp.com/
 
 ## Technologies
